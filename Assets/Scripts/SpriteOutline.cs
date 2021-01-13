@@ -8,9 +8,6 @@ namespace SpriteOutline
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteOutline : MonoBehaviour
     {
-        [SerializeField]
-        Material material;
-
         void Start()
         {
             var sr = GetComponent<SpriteRenderer>();
