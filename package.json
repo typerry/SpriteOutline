@@ -1,0 +1,19 @@
+{
+    "name": "com.t8y.spriteoutline",
+    "version": "1.0.0",
+    "displayName": "Sprite Outline",
+    "description": "High quality outlines for sprites",
+    "keywords": [
+        "2D",
+        "Sprites",
+        "Sprite",
+        "Outline",
+        "Distance Field",
+        "Jump Flood"
+    ],
+    "author": {
+        "name": "Tyler Perry",
+        "email": "tyler@t8y.io",
+        "url": "https://t8y.io"
+    }
+}
