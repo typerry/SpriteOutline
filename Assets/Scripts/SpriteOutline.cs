@@ -14,7 +14,7 @@ namespace SpriteOutline
         void Start()
         {
             var sr = GetComponent<SpriteRenderer>();
-            var df = SDF.GenerateDistanceField(sr.sprite.texture, 0.05f);
+            var df = SDF.GenerateDistanceField(sr.sprite.texture, 1f);
             sr.sharedMaterial.SetTexture("_DistanceField", df);
         }
     }
