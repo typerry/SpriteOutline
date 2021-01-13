@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDF
+namespace SpriteOutline
 {
-    public class Generator
+    public class SDF
     {
-
-
         public static RenderTexture GenerateDistanceField(Texture2D input, float maxDistance = 1f)
         {
             var seed = GetRenderTexture(input.width, input.height, RenderTextureFormat.RGFloat, FilterMode.Point);
