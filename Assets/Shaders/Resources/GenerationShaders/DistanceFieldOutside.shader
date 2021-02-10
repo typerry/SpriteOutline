@@ -41,13 +41,19 @@
 
             sampler2D _MainTex;
             float _MaxDistance;
+            float4 _MainTex_TexelSize;
 
             float frag(v2f i): SV_Target
             {
-
                 float4 value = tex2D(_MainTex, i.uv);
-                float dist = distance(i.uv, value.rg) / _MaxDistance;//0.1 is max distance, the texture is to low quality to store the whole thing
-                dist = clamp(dist, 0.0, 1.0);
+                //float2 ar = float2(_MainTex_TexelSize.w / _MainTex_TexelSize.z, 1);
+                float mx = max(_MainTex_TexelSize.z, _MainTex_TexelSize.w);
+                float2 s = _MainTex_TexelSize.zw / mx;
+
+                //float dist = distance(i.uv * ar, value.rg * ar) / ar.y / _MaxDistance;//0.1 is max distance, the texture is to low quality to store the whole thing
+
+                float dist = distance(i.uv * s, value.rg * s) / _MaxDistance;//0.1 is max distance, the texture is to low quality to store the whole thing
+                //dist = clamp(dist, 0.0, 1.0);
                 float col = dist;
                 return col;
             }
