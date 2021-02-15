@@ -59,7 +59,7 @@
 
             fixed4 frag(v2f i): SV_Target
             {
-                float dist = tex2D(_DistanceField, i.uv2);
+                float dist = DecodeFloatRGBA(tex2D(_DistanceField, i.uv2));//tex2D(_DistanceField, i.uv2).r;
                 float alpha = 1 - smoothstep(_Width - fwidth(dist), _Width, dist);
                 float4 outline = _OutlineColor;
                 outline.a = alpha;

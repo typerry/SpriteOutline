@@ -8,7 +8,7 @@ namespace SpriteOutline
     {
         public static RenderTexture GenerateDistanceField(Texture input, float maxDistance = 1f)
         {
-            var seed = GetRenderTexture(input.width, input.height, RenderTextureFormat.RGFloat, FilterMode.Point);//RenderTextureFormat.RGFloat
+            var seed = GetRenderTexture(input.width, input.height, RenderTextureFormat.ARGB32, FilterMode.Point);//RenderTextureFormat.RGFloat
             Graphics.Blit(input, seed, new Material(Shader.Find("Hidden/SeedInside")));
             RenderTexture rt = JumpFlood(seed);
             RenderTexture dist = GetDistance(rt, maxDistance);
@@ -21,7 +21,7 @@ namespace SpriteOutline
         {
             var mt = new Material(Shader.Find("Hidden/DistanceFieldOutside"));
             mt.SetFloat("_MaxDistance", maxDistance);
-            var result = GetRenderTexture(input.width, input.height, RenderTextureFormat.RFloat, FilterMode.Bilinear);//RenderTextureFormat.RFloat 
+            var result = GetRenderTexture(input.width, input.height, RenderTextureFormat.ARGB32, FilterMode.Bilinear);//RenderTextureFormat.RFloat 
             Graphics.Blit(input, result, mt);
             return result;
         }
@@ -32,7 +32,7 @@ namespace SpriteOutline
             int width = Mathf.Max(input.width, input.height);
             RenderTexture[] textures = new RenderTexture[2];
             textures[0] = input;
-            textures[1] = GetRenderTexture(input.width, input.height, RenderTextureFormat.RGFloat, FilterMode.Point);//RenderTextureFormat.RGFloat
+            textures[1] = GetRenderTexture(input.width, input.height, RenderTextureFormat.ARGB32, FilterMode.Point);//RenderTextureFormat.RGFloat
             var mt = new Material(Shader.Find("Hidden/JumpFloodPass"));
             int max = (int)Mathf.Log(width, 2f) + 1;//no plus 1?
             for (int i = 0; i < max; i++)

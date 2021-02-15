@@ -40,12 +40,12 @@
 
             sampler2D _MainTex;
 
-            float2 frag(v2f i): SV_Target
+            float4 frag(v2f i): SV_Target
             {
                 float4 alpha = floor(tex2D(_MainTex, i.uv).a);//This could be round for a more acurate but for me less usable version(In the sprite the mask will be slightly visible)
                 float4 change = fwidth(alpha);
                 float2 output = float2(i.uv) * alpha;
-                return output;
+                return float4(EncodeFloatRG(output.r), EncodeFloatRG(output.g));
             }
             ENDCG
             

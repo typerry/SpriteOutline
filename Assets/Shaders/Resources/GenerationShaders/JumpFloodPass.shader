@@ -60,13 +60,14 @@
                     {
                         float2 xy = float2(x, y) * _Offset;
                         float2 sampleuv = i.uv + xy;
-                        float4 value = tex2D(_MainTex, sampleuv);
-                        float2 v = cuv - value.rg * s;
+                        float4 fv = tex2D(_MainTex, sampleuv);
+                        float2 value = float2(DecodeFloatRG(fv.rg), DecodeFloatRG(fv.ba));
+                        float2 v = cuv - value * s;
                         float dist = dot(v, v);
                         if (dist < bestDistance && dot(value.rg, value.rg) > 0)//(value.r != 0.0 || value.g != 0.0)
                         {
                             bestDistance = dist;
-                            bestData = value;
+                            bestData = fv;
                         }
                     }
                 }
