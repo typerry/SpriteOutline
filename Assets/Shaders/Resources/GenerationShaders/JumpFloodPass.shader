@@ -46,21 +46,24 @@
 
             float4 frag(v2f i): SV_Target
             {
-                float mx = max(_MainTex_TexelSize.z, _MainTex_TexelSize.w);
-                float2 s = _MainTex_TexelSize.zw / mx;
+                float mx = min(_MainTex_TexelSize.x, _MainTex_TexelSize.y);
+                float2 s = _MainTex_TexelSize.zw * mx;
                 float2 cuv = i.uv * s;
 
-                float bestDistance = 9999.0;
+                float bestDistance = 1.#INF;
                 float4 bestData = float4(0, 0, 0, 0);
+                [unroll]
                 for (int y = -1; y <= 1; y++)
                 {
+                    [unroll]
                     for (int x = -1; x <= 1; x++)
                     {
                         float2 xy = float2(x, y) * _Offset;
                         float2 sampleuv = i.uv + xy;
                         float4 value = tex2D(_MainTex, sampleuv);
-                        float dist = distance(cuv, value.rg * s);
-                        if (dist < bestDistance && length(value.rg) > 0)//(value.r != 0.0 || value.g != 0.0)
+                        float2 v = cuv - value.rg * s;
+                        float dist = dot(v, v);
+                        if (dist < bestDistance && dot(value.rg, value.rg) > 0)//(value.r != 0.0 || value.g != 0.0)
                         {
                             bestDistance = dist;
                             bestData = value;

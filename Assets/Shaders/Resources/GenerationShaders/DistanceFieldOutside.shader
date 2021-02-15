@@ -47,8 +47,8 @@
             {
                 float4 value = tex2D(_MainTex, i.uv);
                 //float2 ar = float2(_MainTex_TexelSize.w / _MainTex_TexelSize.z, 1);
-                float mx = max(_MainTex_TexelSize.z, _MainTex_TexelSize.w);
-                float2 s = _MainTex_TexelSize.zw / mx;
+                float mx = min(_MainTex_TexelSize.x, _MainTex_TexelSize.y);
+                float2 s = _MainTex_TexelSize.zw * mx;
 
                 //float dist = distance(i.uv * ar, value.rg * ar) / ar.y / _MaxDistance;//0.1 is max distance, the texture is to low quality to store the whole thing
 
